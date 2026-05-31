@@ -1,0 +1,67 @@
+#!/bin/bash
+
+## BAH: Beautiful archiving helper
+## LXj, IFL, June 2006
+
+ACTS=(
+        "list"
+        "extract"
+)
+
+FORMATS=(
+    "PATTERNS='.\+\.tar\.gz\$ .\+\.tar\.Z$ .\+\.tgz\$';
+     extract='tar -xzf $2'; 
+     list='tar -tzf $2';
+    "
+
+    "PATTERNS='.\+\.tar\.bz2$ .\+\.tbz2$';
+     extract='tar -xjf $2';
+     list='tar -tjf $2';
+    "
+
+    "PATTERNS='.\+\.zip$';
+     extract='unzip $2';
+     list='unzip -l $2';
+    "
+    
+    "PATTERNS='.\+\.rar$'
+     extract='rar e $2'
+     list='rar l $2'
+    "
+)
+
+ALL_PATTERNS=""
+FOUND="" 
+FILETYPE=""
+
+i=0
+while [[ $i -lt ${#FORMATS[@]} && -z $FILETYPE ]]; do
+    eval "${FORMATS[$i]}"
+    for filetype in $PATTERNS; do
+	[ `expr match "$2" "${filetype}"` -ne 0 ] && FILETYPE=$i
+    done
+    ALL_PATTERNS="$ALL_PATTERNS $PATTERNS"
+    let i+=1
+done
+
+if [[ -z $FILETYPE || " ${ACTS[@]} " !=  *" $1 "* ]]; then
+        echo "BAH!"
+	echo "Usage:"
+	echo "    bah <action> <filename> [<path>]"
+	echo "Where <action> is one of"
+	echo "list - list files in archive"
+	echo "extract - extract all files to current directory"
+	echo "BAH supports following archive types:"
+	echo $ALL_PATTERNS
+        exit;
+fi
+
+
+TMP=\$$1
+eval $TMP
+
+
+
+
+
+

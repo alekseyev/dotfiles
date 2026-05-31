@@ -1,0 +1,2 @@
+#/bin/sh
+PATH="/bin:/usr/bin" find -name .wget-list -execdir ~/bin/wget-list ';'

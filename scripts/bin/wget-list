@@ -1,0 +1,21 @@
+#!/bin/bash
+
+COUNTER=0
+while [ `find .wget-list -size +0` ]
+do
+  let COUNTER=COUNTER+1
+  url=`head -n1 .wget-list`
+  if [[ $url == *youtube* ]]
+  then
+    youtube-dl $url
+  else
+    if [[ $url == *imgur* ]]
+    then
+      wget -c $url -O `printf "%05d.jpg" $COUNTER`
+    else
+      wget -c $url
+    fi
+  fi
+  echo $url >>~/.wget-done
+  sed -si 1d .wget-list
+done

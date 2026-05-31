@@ -20,6 +20,7 @@ ruff
 starship
 stow
 uv
+wget
 ```
 
 ## Required packages - Mac

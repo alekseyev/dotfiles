@@ -1,0 +1,6 @@
+#!/bin/sh
+
+pacman -Scc
+pacman -Rns $(pacman -Qtdq)
+echo "Cleaning cache..."
+rm -rf /home/lxj/.cache/*
