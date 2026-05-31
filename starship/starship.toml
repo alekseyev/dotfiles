@@ -1,0 +1,23 @@
+command_timeout = 2000
+right_format = '$cmd_duration $time'
+
+[package]
+disabled = true
+
+[time]
+disabled = false
+
+[lua]
+disabled = true
+
+[cmd_duration]
+min_time = 2000
+format = 'underwent [$duration](bold yellow)'
+
+[directory]
+truncation_length = 255
+truncate_to_repo = false
+use_logical_path = false
+
+[python]
+pyenv_version_name = false
