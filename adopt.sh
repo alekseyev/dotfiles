@@ -1,2 +1,2 @@
 #!/bin/sh
-stow -v -t ~ kitty scripts starship zsh
+stow -v -t ~ git kitty scripts starship zsh

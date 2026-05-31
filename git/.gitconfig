@@ -1,0 +1,48 @@
+[user]
+	name = Oleksii 'LXj' Aleksieiyev
+	email = gotletter@gmail.com
+
+[color]
+	ui = true
+
+[push]
+	default = current
+
+[core]
+	editor = vim
+	pager = less -FRX --mouse
+
+[pull]
+	rebase = true
+
+[includeIf "gitdir:~/surprise/"]
+        path = ~/surprise/.gitconfig
+
+[includeIf "gitdir:~/work/"]
+        path = ~/work/.gitconfig
+
+[includeIf "gitdir:~/personal/"]
+        path = ~/personal/.gitconfig
+
+[init]
+	defaultBranch = main
+
+[diff]
+	tool = difftastic
+
+[difftool]
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+
+[pager]
+	difftool = true
+
+[alias]
+	dft = difftool
+	sta = stash --all
+	bla = blame -w -C -C -C
+
+[include] 
+	path = ~/.gitconfig.local

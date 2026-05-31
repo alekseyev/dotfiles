@@ -14,6 +14,7 @@ direnv
 git
 gh
 httpie
+just
 jq
 rich-cli
 ruff
