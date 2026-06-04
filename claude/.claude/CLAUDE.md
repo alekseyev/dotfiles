@@ -37,3 +37,7 @@
 ## Config
 
 - When running web apps for development (e.g. FastAPI/Django/etc), always choose a port 10000 or higher.
+
+### Python 3.14 syntax notes
+
+- [PEP 758](https://peps.python.org/pep-0758/): `except` and `except*` accept a comma-separated list of exception types *without* parentheses, e.g. `except socket.herror, socket.gaierror:`. This looks like a Python 2 holdover but is valid here — do not "fix" it by wrapping in parens or flagging it as a bug.
