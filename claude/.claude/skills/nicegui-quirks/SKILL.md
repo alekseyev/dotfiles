@@ -33,6 +33,8 @@ These are not in the NiceGUI docs (or are easy to miss). Apply them proactively 
 - **`ui.table` doesn't auto-forward custom slot `$emit` events to Python.** Vue events emitted inside slot templates don't bubble up to NiceGUI. Use the table's built-in row/selection events, or invoke a callback via JS.
 - **`ui.select` async search doesn't work via `bind_options_from`.** For server-side filtering (e.g. ES autocomplete), listen for Quasar's `filter` event directly. Initial dict values can also break `option-label`/`option-value` rendering — prefer plain strings or map manually.
 - **Native HTML5 drag-and-drop does not map to NiceGUI element `.on()` handlers.** `dragstart`/`dragover`/`drop` fire on the document, not on the Vue component, and `dataTransfer` isn't reliably readable from a NiceGUI event. The working pattern is document-level listeners injected via `add_body_html("<script>…</script>")` that stash drag state on `window` and POST to a custom FastAPI route (`fetch('/api/...')`) on drop. It's heavy enough that a `ui.select` "move to shelf" picker is often the better trade — reach for DnD only when the gesture is the point.
+- **`ui.keyboard` ignores key events while focus is in an input/select/textarea/button by default.** The `ignore=` parameter defaults to `['input', 'select', 'button', 'textarea']`, so a page-level Ctrl+Enter shortcut won't fire while the user is typing in a `ui.input`. Pass `ignore=[]` to capture keys regardless of focus.
+
 
 ## Browser-side JS interop
 
