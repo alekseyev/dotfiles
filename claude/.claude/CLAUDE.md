@@ -22,6 +22,7 @@
 - Follow the established folder structure.
 - Prefer functions in modules rather than object-oriented programming though classes are fine when they make sense.
 - Prefer a stand-alone pytest.ini configuration rather than embedding these details within a pyproject.toml, even if the pyproject.toml file exists.
+- Keep raw storage clients out of view code. View / handler / route code (HTTP endpoints, page handlers, CLI commands) and background-job handlers must not call DB sessions, ORM/search-index clients, Redis/queue clients, or object-storage SDKs directly to build ad-hoc queries, commands, or key layouts. Wrap every query / command / key in a data-access module — whatever the project calls it (`data_access/`, `data_layer/`, `dal/`, `db/`, `storage/`) — and have the view/worker call that. If the right method doesn't exist yet, add it there; don't inline the query at the call site. The common allowed escape hatch is enqueueing background jobs, which usually already goes through a thin helper.
 
 ## Tools
 
