@@ -6,8 +6,8 @@
 - Use async/await for asynchronous operations
 - Prefer basic / vanilla JavaScript over frameworks.
 - Never put `#!/usr/bin/env python3` at the top of python scripts. We run our scripts with python out of virtual environments as `./venv/bin/python` or with `uv run`. For standalone scripts intended to be used separately, use `#!/usr/bin/env -S uv run --script` (and include inline dependencies)
-- Prefer uuidv7 for generating ids
 - Often the web server you are building for is already running. It also may have auto reload when changes are detected. Please assume it's already going before starting a new instance. 
+- Prefer UUIDv7 (`uuid.uuid7()`, Python 3.14+) over UUIDv4 when generating new ids. Fall back to `uuid4()` only on older Pythons where `uuid7` isn't available.
 
 ## Code Style
 
