@@ -5,7 +5,8 @@
 - Implement proper error handling
 - Use async/await for asynchronous operations
 - Prefer basic / vanilla JavaScript over frameworks.
-- Never put `#!/usr/bin/env python3` at the top of python scripts. We run our scripts with python out of virtual environments as `./venv/bin/python` or with `uv run`.
+- Never put `#!/usr/bin/env python3` at the top of python scripts. We run our scripts with python out of virtual environments as `./venv/bin/python` or with `uv run`. For standalone scripts intended to be used separately, use `#!/usr/bin/env -S uv run --script` (and include inline dependencies)
+- Prefer uuidv7 for generating ids
 - Often the web server you are building for is already running. It also may have auto reload when changes are detected. Please assume it's already going before starting a new instance. 
 
 ## Code Style
@@ -31,8 +32,7 @@
 
 ## Changes
 
-- If there is a change-log.md file in this project, it means that we wish to track changes to the project. 
-- When *major* changes or features are made/added I want a concise summary of the change and files involved (summarize if too many files are changed). Use the change-log.md file to track changes and as a template.
+- When *major* changes or features are made/added I want a concise summary of the change and files involved (summarize if too many files are changed)
 
 ## Config
 
