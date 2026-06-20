@@ -11,6 +11,7 @@ bat
 btop
 difftastic
 direnv
+fish
 git
 gh
 httpie
