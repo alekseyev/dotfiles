@@ -1,3 +1,13 @@
+# Use fish for interactive sessions while keeping zsh as the POSIX login shell.
+# (chsh stays pointed at zsh, which always exists, so we never risk a broken
+# login shell if the fish binary's path goes away — e.g. Intel brew/Rosetta.)
+# Escape hatch: `NO_FISH=1 zsh` gives a plain zsh session. Launching zsh from
+# within fish also stays in zsh, since NO_FISH is exported below.
+if [[ -o interactive && -z "$NO_FISH" && -z "$INSIDE_EMACS" ]] && command -v fish >/dev/null 2>&1; then
+  export NO_FISH=1
+  exec fish
+fi
+
 # 🚀
 eval "$(starship init zsh)"
 
