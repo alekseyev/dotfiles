@@ -1,4 +1,5 @@
 {
   "model": "opus",
-  "preferredNotifChannel": "notifications_disabled"
+  "preferredNotifChannel": "notifications_disabled",
+  "tui": "fullscreen"
 }
