@@ -3,26 +3,16 @@
 # login shell if the fish binary's path goes away — e.g. Intel brew/Rosetta.)
 # Escape hatch: `NO_FISH=1 zsh` gives a plain zsh session. Launching zsh from
 # within fish also stays in zsh, since NO_FISH is exported below.
-if [[ -o interactive && -z "$NO_FISH" && -z "$INSIDE_EMACS" ]] && command -v fish >/dev/null 2>&1; then
+# `-t 1` keeps the handoff away from programmatic shells: VS Code and similar
+# tools resolve the environment by running `zsh -ic` with output piped, and
+# exec'ing fish there hands them back an empty env instead of PATH.
+if [[ -o interactive && -t 1 && -z "$NO_FISH" && -z "$INSIDE_EMACS" ]] && command -v fish >/dev/null 2>&1; then
   export NO_FISH=1
   exec fish
 fi
 
 # 🚀
 eval "$(starship init zsh)"
-
-# PATH
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin:/usr/games/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/vendor_perl:/usr/bin/core_perl"
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-
-case "$OSTYPE" in
-  darwin*)
-    export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
-    export PATH=$PATH:"/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-    ;;
-  linux*)
-    ;;
-esac
 
 # Aliases
 alias gecho='echo -e "\033[01;32m"'
