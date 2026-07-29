@@ -31,7 +31,6 @@
 ## Tools
 
 - Use uv (`uv add`) for dependency management, unless the project uses poetry.
-- Format and lint with `ruff format` and `ruff check`, honoring ruff.toml if present.
 - Test with pytest.
 
 ## Changes

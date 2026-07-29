@@ -1,5 +1,20 @@
 {
   "model": "opus",
   "preferredNotifChannel": "notifications_disabled",
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/ruff.sh\"",
+            "statusMessage": "Running ruff",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
 }
