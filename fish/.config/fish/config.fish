@@ -4,18 +4,29 @@ set -gx EDITOR vim
 set -gx GIT_EDITOR vim
 set -gx PYENV_ROOT $HOME/.pyenv
 
-# PATH
-fish_add_path $HOME/bin $HOME/.local/bin /usr/games/bin
-fish_add_path $PYENV_ROOT/bin $PYENV_ROOT/shims
-fish_add_path /usr/local/opt/openjdk/bin
-
-switch (uname)
-    case Darwin
-        if type -q brew
-            fish_add_path (brew --prefix)/opt/gnu-sed/libexec/gnubin
-        end
-        fish_add_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+# /opt/homebrew on Apple Silicon, /usr/local on Intel and under Rosetta,
+# /home/linuxbrew on Linux. Sets HOMEBREW_PREFIX, used below.
+for brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
+    if test -x $brew
+        $brew shellenv fish | source
+        break
+    end
 end
+set -e brew
+
+# Prepended in the order given, so earlier entries win. Missing directories are
+# skipped, and the $HOMEBREW_PREFIX entries expand to nothing where brew isn't
+# installed. Keg-only formulae aren't linked into $HOMEBREW_PREFIX/bin, so
+# libpq, openjdk and gnu-sed have to be named here.
+fish_add_path $HOME/bin $HOME/.local/bin /usr/games/bin \
+    $PYENV_ROOT/bin $PYENV_ROOT/shims \
+    $HOMEBREW_PREFIX/opt/libpq/bin \
+    $HOMEBREW_PREFIX/opt/openjdk/bin \
+    $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin \
+    "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# Appended so they rank below the additions above.
+fish_add_path -a /usr/local/bin /usr/local/sbin
 
 # Interactive-only setup
 if status is-interactive

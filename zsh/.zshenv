@@ -14,6 +14,7 @@ path=(
   $HOME/.local/bin
   $HOME/.pyenv/bin
   $HOME/.pyenv/shims
+  $HOMEBREW_PREFIX/opt/libpq/bin
   $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin
   $HOMEBREW_PREFIX/opt/openjdk/bin
   $path
