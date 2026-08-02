@@ -56,6 +56,13 @@ if status is-interactive
             alias la 'ls -lAh --hyperlink=auto --color=auto'
     end
 
+    # Fish reads the history file once at startup and ignores what other
+    # sessions append afterwards. Merging before each prompt makes a command
+    # run in one kitty tab available to the others right away.
+    function __merge_history --on-event fish_prompt
+        history merge
+    end
+
     # Local machine-specific overrides
     test -f ~/.config/fish/local.fish; and source ~/.config/fish/local.fish
 
