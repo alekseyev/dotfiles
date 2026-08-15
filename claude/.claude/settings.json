@@ -2,6 +2,9 @@
   "model": "opus",
   "preferredNotifChannel": "notifications_disabled",
   "tui": "fullscreen",
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "hooks": {
     "PostToolUse": [
       {
