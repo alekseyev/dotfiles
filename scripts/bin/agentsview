@@ -1,0 +1,36 @@
+#!/bin/bash
+
+## Run agentsview in Docker, open it in the browser, and stay in the foreground.
+
+set -euo pipefail
+
+PORT=1080
+NAME=agentsview
+URL="http://127.0.0.1:$PORT"
+
+if [ -n "$(docker ps -q --filter "name=^/${NAME}$")" ]; then
+    echo "agentsview is already running at $URL"
+    open "$URL"
+    exit 0
+fi
+
+docker run --rm --name "$NAME" -p "127.0.0.1:$PORT:$PORT" \
+    -v agentsview-data:/data \
+    -v "$HOME/.claude/projects:/agents/claude:ro" \
+    -e CLAUDE_PROJECTS_DIR=/agents/claude \
+    ghcr.io/kenn-io/agentsview:latest \
+    --host 0.0.0.0 --no-browser --port "$PORT" &
+docker_pid=$!
+
+trap 'docker stop "$NAME" >/dev/null 2>&1 || true' INT TERM
+
+for _ in $(seq 60); do
+    kill -0 "$docker_pid" 2>/dev/null || break
+    if curl -sfo /dev/null "$URL"; then
+        open "$URL"
+        break
+    fi
+    sleep 1
+done
+
+wait "$docker_pid"
