@@ -1,10 +1,8 @@
 {
-  "model": "opus",
-  "preferredNotifChannel": "notifications_disabled",
-  "tui": "fullscreen",
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {
@@ -13,17 +11,25 @@
           {
             "type": "command",
             "command": "\"$HOME/.claude/hooks/ruff.sh\"",
-            "statusMessage": "Running ruff",
-            "timeout": 60
+            "timeout": 60,
+            "statusMessage": "Running ruff"
           }
         ]
       }
     ]
   },
-  "effortLevel": "xhigh",
-  "outputStyle": "Concise",
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline-command.sh\""
+  },
+  "outputStyle": "Concise",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "theme": "dark",
+  "preferredNotifChannel": "notifications_disabled",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
   }
 }
